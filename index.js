@@ -1,20 +1,22 @@
+// delete element button
+// having edit functionality
 function handleFormSubmit(event){
     event.preventDefault()
     const username = event.target.username.value
       const email = event.target.email.value
     const phone = event.target.phone.value
-     
-   const obj = { username: username, email: email, phone: phone }
+   const obj = { 
+     username: username, 
+     email: email, 
+     phone: phone }
     const modifiedObj = JSON.stringify(obj) 
      localStorage.setItem(email, modifiedObj)
-     
    displayUsers()
   }
   module.exports = handleFormSubmit
-  
   function displayUsers() {
     const userList = document.getElementById("userlist")
-    userList.innerHTML = ""
+    userList.innerHTML= ""
   
   
     for (let i = 0; i < localStorage.length; i++) {
@@ -33,10 +35,24 @@ function handleFormSubmit(event){
       }
   
       listItem.appendChild(deleteButton)
+  
+      const editButton = document.createElement("button")
+            editButton.textContent ="Edit"
+            editButton.onclick = () => {
+              handleEdit(userData)
+            }
+        listItem.appendChild(editButton);
         userList.appendChild(listItem) 
     }
   }
-/* scale
+  function handleEdit(userData) { 
+  localStorage.removeItem(userData.email); 
+  document.getElementById("username").value = userData.username
+  document.getElementById("email").value = userData.email
+  document.getElementById("phone").value = userData.phone      
+  displayUsers()
+  }
+  window.onload = displayUsers;
 function handleFormSubmit(event) {
     event.preventDefault();
   
