@@ -1,4 +1,26 @@
-// update 
+// scale
+function handleFormSubmit(event) {
+    event.preventDefault();
+  
+    const username = event.target.username.value;
+    const email = event.target.email.value;
+    const phone = event.target.phone.value;
+  
+    //Showing the list of user details on screen
+    const newLi = document.createElement('li');
+    newLi.innerHTML = username + ' - ' + email + ' - ' + phone;
+    const userList = document.querySelector('#userList');
+    userList.appendChild(newLi);
+  
+    //Best way to store details in local storage is using objects.
+    const obj = { username: username, email: email, phone: phone };
+    const modifiedObj = JSON.stringify(obj); //Coverting to JSON objects
+    localStorage.setItem(email, modifiedObj);
+  }
+  module.exports=handleFormSubmit;
+
+  
+/*update 
 function handleFormSubmit(event){
     event.preventDefault();
     const username = event.target.username.value;
