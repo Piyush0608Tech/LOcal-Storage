@@ -1,4 +1,42 @@
-// scale
+function handleFormSubmit(event){
+    event.preventDefault()
+    const username = event.target.username.value
+      const email = event.target.email.value
+    const phone = event.target.phone.value
+     
+   const obj = { username: username, email: email, phone: phone }
+    const modifiedObj = JSON.stringify(obj) 
+     localStorage.setItem(email, modifiedObj)
+     
+   displayUsers()
+  }
+  module.exports = handleFormSubmit
+  
+  function displayUsers() {
+    const userList = document.getElementById("userlist")
+    userList.innerHTML = ""
+  
+  
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      const userData = JSON.parse(localStorage.getItem(key))
+  
+   
+      const listItem = document.createElement("li")
+      listItem.textContent = `${userData.username} - ${userData.email} - ${userData.phone}`
+      
+      const deleteButton = document.createElement("button")
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = () => {
+        localStorage.removeItem(key); 
+        displayUsers()
+      }
+  
+      listItem.appendChild(deleteButton)
+        userList.appendChild(listItem) 
+    }
+  }
+/* scale
 function handleFormSubmit(event) {
     event.preventDefault();
   
@@ -17,9 +55,9 @@ function handleFormSubmit(event) {
     const modifiedObj = JSON.stringify(obj); //Coverting to JSON objects
     localStorage.setItem(email, modifiedObj);
   }
-  module.exports=handleFormSubmit;
 
-  
+
+
 /*update 
 function handleFormSubmit(event){
     event.preventDefault();
